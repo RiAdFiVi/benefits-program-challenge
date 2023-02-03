@@ -59,6 +59,9 @@ public final class ProductGenerator {
             double price = Double.parseDouble(new DecimalFormat("0.00")
                                                 .format(new Random().nextDouble() * 10.00));
             int quantity = new Random().nextInt(5) + 1;
+            while ((total + price * (quantity - 1)) > expectedTotal && quantity >= 0) {
+            	--quantity;
+            }
             products.put(new Product("Product " + id, //product name
                             price,
                             new Random().nextInt(3) + 1), //type

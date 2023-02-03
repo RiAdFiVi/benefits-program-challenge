@@ -39,4 +39,40 @@ class OrderTest {
         Map<Product, Integer> products = ProductGenerator.generateProducts(5);
         assertEquals(0.05, payOrder(products, "Visa"));
     }
+    
+    @Test
+    void orderWithMastercardMoreThan100SubtotalTest() {
+        Map<Product, Integer> products = ProductGenerator.generateProducts(110.0);
+        assertEquals(0.17, payOrder(products, "Mastercard"));
+    }
+    
+    @Test
+    void orderWithMastercardMoreThan75SubtotalTest() {
+        Map<Product, Integer> products = ProductGenerator.generateProducts(85.0);
+        assertEquals(0.12, payOrder(products, "Mastercard"));
+    }
+    
+    @Test
+    void orderWithMastercardLessThan75SubtotalTest() {
+        Map<Product, Integer> products = ProductGenerator.generateProducts(55.0);
+        assertEquals(0.08, payOrder(products, "Mastercard"));
+    }
+    
+    @Test
+    void orderWithOthercardLessThan75SubtotalTest() {
+        Map<Product, Integer> products = ProductGenerator.generateProducts(55.0);
+        assertEquals(0.0, payOrder(products, "American Express"));
+    }
+    
+    @Test
+    void orderWithOthercardMoreThan75SubtotalTest() {
+        Map<Product, Integer> products = ProductGenerator.generateProducts(80.0);
+        assertEquals(0.0, payOrder(products, "American Express"));
+    }
+    
+    @Test
+    void orderWithOthercardMoreThan100SubtotalTest() {
+        Map<Product, Integer> products = ProductGenerator.generateProducts(120.0);
+        assertEquals(0.0, payOrder(products, "American Express"));
+    }
 }
